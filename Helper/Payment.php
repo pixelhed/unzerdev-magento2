@@ -273,7 +273,7 @@ class Payment
         /** @var Order\Invoice $invoice */
         $invoice = $order->getInvoiceCollection()->getItemByColumnValue('transaction_id', $transactionId);
 
-        if ((int)$invoice->getState() === Order\Invoice::STATE_OPEN) {
+        if (null !== $invoice && (int)$invoice->getState() === Order\Invoice::STATE_OPEN) {
             $invoice->pay();
 
             $order = $invoice->getOrder();
