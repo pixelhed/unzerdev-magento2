@@ -291,7 +291,7 @@ class Payment
             $order->getId()
         );
 
-        if (!$paymentTransaction->getIsClosed()) {
+        if (false !== $paymentTransaction && !$paymentTransaction->getIsClosed()) {
             $paymentTransaction->setIsClosed(true);
 
             $this->_transactionRepository->save($paymentTransaction);
