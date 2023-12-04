@@ -494,6 +494,10 @@ class Payment
             return;
         }
 
+        if (in_array($state, [Order::STATE_PENDING_PAYMENT], true)) {
+            return;
+        }
+
         $this->sendEmails($order);
     }
 
