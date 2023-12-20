@@ -152,8 +152,16 @@ class Order
                 continue;
             }
 
+            $basketItem = $this->createBasketItem($orderItem);
+            // skip 'free' products as API rejects these: Api error code API.600.410.065
+            if ($basketItem->getType() === BasketItemTypes::GOODS
+                && $basketItem->getAmountPerUnitGross() === 0.0
+                && $basketItem->getAmountDiscountPerUnitGross() === 0.0) {
+                continue;
+            }
+            
             $basket->addBasketItem(
-                $this->createBasketItem($orderItem)
+                $basketItem
             );
         }
 
